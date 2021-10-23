@@ -5,13 +5,13 @@ use ieee.std_logic_unsigned.all;
 entity sorter is
 port (clk: in std_logic;
 reset: in std_logic;
-weight: in std_logic_vector (11 downto 0);
-Grp1, Grp2, Grp3, Grp4, Grp5, Grp6 : out std_logic_vector (7 downto 0);
-currentGrp: out std_logic_vector (2 downto 0));
+weight: in std_logic_vector (0 to 11);
+grp1, grp2, grp3, grp4, grp5, grp6: out std_logic_vector (0 to 7);
+currentGrp: out std_logic_vector (0 to 2));
 end sorter;
 
 architecture bhv of sorter is
-signal weight_zero:unsigned (11 downto 0);
+signal weight_measure: std_logic_vector (0 to 11);
 begin
 
 process(clk, reset)

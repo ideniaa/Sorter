@@ -13,16 +13,16 @@ end sorter;
 architecture bhv of sorter is
 signal weight_measure: std_logic_vector (0 to 11);
 begin
-
 process(clk, reset)
-variable Grp1_S,Grp2_S,Grp3_S,Grp4_S,Grp5_S,Grp6_S :unsigned (7downto 0);
-variable currentGrp_S :unsigned (2 downto 0);
 
 begin
-if(reset='1')then
---When reset=1 all the group outputs are Zero
-Grp1_S:=(others=>'0'); Grp2_S:=(others=>'0');Grp3_S:=(others=>'0');
-Grp4_S:=(others=>'0'); Grp5_S:=(others=>'0');Grp6_S:=(others=>'0');
+if (reset = '1') then
+grp1 <= "00000000";
+grp2 <= "00000000";
+grp3 <= "00000000";
+grp4 <= "00000000";
+grp5 <= "00000000";
+grp6 <= "00000000";
 currentGrp_S:=(others=>'0');
 elsif(clk'event and clk='1')then
 weight_zero<=weight;

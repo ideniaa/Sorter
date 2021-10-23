@@ -1,0 +1,66 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity sorter is
+port (clk: in std_logic;
+reset: in std_logic;
+weight: in std_logic_vector (11 downto 0);
+Grp1, Grp2, Grp3, Grp4, Grp5, Grp6 : out std_logic_vector (7 downto 0);
+currentGrp: out std_logic_vector (2 downto 0));
+end sorter;
+
+architecture bhv of sorter is
+signal weight_zero:unsigned (11 downto 0);
+begin
+
+process(clk, reset)
+variable Grp1_S,Grp2_S,Grp3_S,Grp4_S,Grp5_S,Grp6_S :unsigned (7downto 0);
+variable currentGrp_S :unsigned (2 downto 0);
+
+begin
+if(reset='1')then
+--When reset=1 all the group outputs are Zero
+Grp1_S:=(others=>'0'); Grp2_S:=(others=>'0');Grp3_S:=(others=>'0');
+Grp4_S:=(others=>'0'); Grp5_S:=(others=>'0');Grp6_S:=(others=>'0');
+currentGrp_S:=(others=>'0');
+elsif(clk'event and clk='1')then
+weight_zero<=weight;
+if(weight=0)then
+currentGrp_S:="000";
+
+elsif(weight> 0 and weight<=200 and weight_zero=0)then
+Grp1_S:=Grp1_S+1;
+currentGrp_S:="001";
+
+elsif(weight> 200 and weight<=500 andweight_zero=0)then
+Grp2_S:=Grp2_S+1;
+currentGrp_S:="010";
+
+elsif(weight> 500 and weight<=800 andweight_zero=0)then
+Grp3_S:=Grp3_S+1;
+currentGrp_S:="011";
+
+elsif(weight> 800 and weight<=1000 andweight_zero=0)then
+Grp4_S:=Grp4_S+1;
+currentGrp_S:="100";
+
+elsif(weight> 1000 and weight<=2000 andweight_zero=0)then
+Grp5_S:=Grp5_S+1;
+currentGrp_S:="101";
+
+elsif(weight> 2000 and weight_zero=0)then
+Grp6_S:=Grp6_S+1;
+currentGrp_S:="110";
+else
+
+Grp1_S:=Grp1_S; Grp2_S:=Grp2_S; Grp3_S:=Grp3_S; Grp4_S:=Grp4_S;Grp5_S:=Grp5_S; Grp6_S:=Grp6_S;
+currentGrp_S:=currentGrp_S;
+end if;
+end if;
+Grp1<=Grp1_S; Grp2<=Grp2_S; Grp3<=Grp3_S;
+Grp4<=Grp4_S; Grp5<=Grp5_S; Grp6<=Grp6_S;
+currentGrp<=currentGrp_S;
+end process;
+
+end Behavioral;

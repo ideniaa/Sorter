@@ -12,7 +12,7 @@ signal grp1, grp2, grp3, grp4, grp5, grp6: std_logic_vector(0 to 7);
 signal currentGrp: std_logic_vector(0 to 2);
 begin
 	UUT: entity work.sorter port map(clk => clk, reset => reset, weight => weight, grp1 => grp1,
-		grp2 => grp2, grp3 => grp3, currentGrp => currentGrp);
+		grp2 => grp2, grp3 => grp3, grp4 => grp4, grp5 => grp5, grp6 => grp6, currentGrp => currentGrp);
 		
 		process
 		constant period : time := 10 ns;
@@ -110,38 +110,39 @@ begin
 			wait for period;
 			assert((grp3 = "00000011") and (currentGrp = "011")) 
 				report "test failed for weight is 789lb" severity error;
+				
 ---------------------------------------------------------------------------------------------------------
 			clk <= '0';
 			reset <= '1';
 			wait for period;
-			assert((grp2 = "00000000") and (currentGrp = "000"))
+			assert((grp3 = "00000000") and (currentGrp = "000"))
 				report "test failed for reset = 1" severity error;
 
 --------------------Grp4
 			reset <= '0';
 			clk <= '1';
-			weight <= std_logic_vector(to_unsigned(504, weight'length));
+			weight <= std_logic_vector(to_unsigned(855, weight'length));
 			wait for period;
-			assert((grp3 = "00000001") and (currentGrp = "011")) 
-				report "test failed for weight is 504lb" severity error;
+			assert((grp4 = "00000001") and (currentGrp = "100")) 
+				report "test failed for weight is 855lb" severity error;
 			
 			clk <= '0';
         		wait for period;
 
         		clk <= '1';
-			weight <= std_logic_vector(to_unsigned(615, weight'length));
+			weight <= std_logic_vector(to_unsigned(930, weight'length));
 			wait for period;
-			assert((grp3 = "00000010") and (currentGrp = "011")) 
-				report "test failed for weight is 615lb" severity error;
+			assert((grp4 = "00000010") and (currentGrp = "100")) 
+				report "test failed for weight is 930lb" severity error;
 
 			clk <= '0';
         		wait for period;
 
         		clk <= '1';
-			weight <= std_logic_vector(to_unsigned(789, weight'length));
+			weight <= std_logic_vector(to_unsigned(1000, weight'length));
 			wait for period;
-			assert((grp3 = "00000011") and (currentGrp = "011")) 
-				report "test failed for weight is 789lb" severity error;
+			assert((grp4 = "00000011") and (currentGrp = "100")) 
+				report "test failed for weight is 1000lb" severity error;
 			
 			wait;
 		end process;

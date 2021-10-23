@@ -23,44 +23,45 @@ grp3 <= "00000000";
 grp4 <= "00000000";
 grp5 <= "00000000";
 grp6 <= "00000000";
-currentGrp_S:=(others=>'0');
-elsif(clk'event and clk='1')then
-weight_zero<=weight;
-if(weight=0)then
-currentGrp_S:="000";
+currentGrp <= "000";
 
-elsif(weight> 0 and weight<=200 and weight_zero=0)then
-Grp1_S:=Grp1_S+1;
-currentGrp_S:="001";
+elsif (clk'event and clk = '1') then
+weight_measure <= weight;
+if (weight = 0) then
+currentGrp <= "000";
 
-elsif(weight> 200 and weight<=500 andweight_zero=0)then
-Grp2_S:=Grp2_S+1;
-currentGrp_S:="010";
+elsif (weight > 0 and weight <= 200 and weight_measure = 0) then
+grp1 <= grp1 + 1;
+currentGrp <= "001";
 
-elsif(weight> 500 and weight<=800 andweight_zero=0)then
-Grp3_S:=Grp3_S+1;
-currentGrp_S:="011";
+elsif (weight > 200 and weight <= 500 and weight_measure = 0)then
+grp2 <= grp2 + 1;
+currentGrp <= "010";
 
-elsif(weight> 800 and weight<=1000 andweight_zero=0)then
-Grp4_S:=Grp4_S+1;
-currentGrp_S:="100";
+elsif (weight > 500 and weight <= 800 and weight_measure = 0)then
+grp3 <= grp3 + 1;
+currentGrp <= "011";
 
-elsif(weight> 1000 and weight<=2000 andweight_zero=0)then
-Grp5_S:=Grp5_S+1;
-currentGrp_S:="101";
+elsif (weight > 800 and weight <= 1000 and weight_measure = 0) then
+grp4 <= grp4 + 1;
+currentGrp <= "100";
 
-elsif(weight> 2000 and weight_zero=0)then
-Grp6_S:=Grp6_S+1;
-currentGrp_S:="110";
+elsif (weight > 1000 and weight <= 2000 and weight_measure = 0) then
+grp5 <= grp5 + 1;
+currentGrp <= "101";
+
+elsif (weight > 2000 and weight_measure = 0) then
+grp6 <= grp6 + 1;
+currentGrp <= "110";
+
 else
-
-Grp1_S:=Grp1_S; Grp2_S:=Grp2_S; Grp3_S:=Grp3_S; Grp4_S:=Grp4_S;Grp5_S:=Grp5_S; Grp6_S:=Grp6_S;
-currentGrp_S:=currentGrp_S;
+grp1 <= grp1;
+grp2 <= grp2;
+grp3 <= grp3;
+grp4 <= grp4;
+grp5 <= grp5;
+grp6 <= grp6;
 end if;
 end if;
-Grp1<=Grp1_S; Grp2<=Grp2_S; Grp3<=Grp3_S;
-Grp4<=Grp4_S; Grp5<=Grp5_S; Grp6<=Grp6_S;
-currentGrp<=currentGrp_S;
 end process;
-
-end Behavioral;
+end bhv;
